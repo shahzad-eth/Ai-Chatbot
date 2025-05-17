@@ -184,6 +184,7 @@ export const ChatProvider = ({ children }) => {
                 setLoading,
                 deleteChat,
                 fetchChats,
+                setMessages,
             }}
         >
             {children}

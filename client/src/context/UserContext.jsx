@@ -18,6 +18,7 @@ export const UserProvider = ({ children }) => {
             localStorage.setItem("verifyToken", data.verifyToken);
             navigate("/verify");
             setBtnLoading(false);
+
         } catch (error) {
             toast.error(error.response.data.message);
             setBtnLoading(false);
@@ -41,6 +42,7 @@ export const UserProvider = ({ children }) => {
             toast.success(data.message);
             localStorage.clear();
             localStorage.setItem("token", data.token);
+            window.location.reload();
             navigate("/");
             setBtnLoading(false);
             setIsAuth(true);
@@ -75,17 +77,20 @@ export const UserProvider = ({ children }) => {
     }
 
     const logoutHandler = (navigate) => {
-        localStorage.clear();
+        if (confirm("are you sure you want to logout")) {
 
-        setIsAuth(false);
-        setUser([]);
-        navigate("/login");
+            localStorage.clear();
 
-        const { setChats, setSelected, setMessages } = ChatData();
-        setChats([]);
-        setSelected(null);
-        setMessages([]);
-        toast.success("logged out");
+            setIsAuth(false);
+            setUser([]);
+            navigate("/login");
+
+            const { setChats, setSelected, setMessages } = ChatData();
+            setChats([]);
+            setSelected(null);
+            setMessages([]);
+            toast.success("logged out");
+        }
     };
 
     useEffect(() => {
