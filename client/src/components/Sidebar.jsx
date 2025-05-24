@@ -8,7 +8,7 @@ import { UserData } from "../context/Usercontext";
 const Sidebar = ({ isOpen, toggleSidebar }) => {
     const { chats, createChat, createLod, setSelected, deleteChat } = ChatData();
 
-    const { logoutHandler } = UserData();
+    const { logoutHandler, user } = UserData();
 
     const deleteChatHandler = (id) => {
         if (confirm("are you sure you want to delete this chat")) {
@@ -67,9 +67,17 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
                 </div>
             </div>
 
-            <div className="absolute bottom-0 mb-6 w-full">
+            <div className="md:pb-0 absolute bottom-0 mb-6 w-full pr-8 pb-18">
+                {/* User info section */}
+                <div className="mb-3 p-2 pr-1 bg-gray-700 rounded">
+                    <p className="text-sm text-gray-300 truncate">
+                        Logged in as: <span className="text-white">{user?.email || 'User'}</span>
+                    </p>
+                </div>
+
+                {/* Logout button */}
                 <button
-                    className="bg-red-600 text-white text-xl px-3 py-2 rounded-md hover:bg-red-700"
+                    className="bg-red-600 text-white text-xl px-3 py-2 rounded-md hover:bg-red-700 w-full"
                     onClick={logoutHandler}
                 >
                     Logout

@@ -42,7 +42,6 @@ export const UserProvider = ({ children }) => {
             toast.success(data.message);
             localStorage.clear();
             localStorage.setItem("token", data.token);
-            window.location.reload();
             navigate("/");
             setBtnLoading(false);
             setIsAuth(true);
@@ -54,6 +53,8 @@ export const UserProvider = ({ children }) => {
         } catch (error) {
             toast.error(error.response.data.message);
             setBtnLoading(false);
+        } finally {
+            window.location.reload();
         }
     }
     const [loading, setLoading] = useState(true);
