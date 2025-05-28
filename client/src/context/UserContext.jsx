@@ -8,6 +8,7 @@ const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
     const [btnLoading, setBtnLoading] = useState(false);
+    const [verificationLoading, setVerificationLoading] = useState(false); // New loading state
 
     async function loginUser(email, navigate) {
         setBtnLoading(true);
@@ -42,8 +43,9 @@ export const UserProvider = ({ children }) => {
             toast.success(data.message);
             localStorage.clear();
             localStorage.setItem("token", data.token);
-            navigate("/");
+            setVerificationLoading(true);
             setBtnLoading(false);
+            navigate("/");
             setIsAuth(true);
             setUser(data.user);
             const { setMessages, setSelected } = ChatData();
@@ -60,6 +62,14 @@ export const UserProvider = ({ children }) => {
     const [loading, setLoading] = useState(true);
 
     async function fetchUser() {
+        const token = localStorage.getItem("token");
+
+        // Don't make API call if no token exists
+        if (!token) {
+            setIsAuth(false);
+            setLoading(false);
+            return;
+        }
         try {
             const { data } = await axios.get(`${server}/api/user/me`, {
                 headers: {
@@ -91,6 +101,8 @@ export const UserProvider = ({ children }) => {
             setSelected(null);
             setMessages([]);
             toast.success("logged out");
+
+            window.location.href = "/login";
         }
     };
 
@@ -108,6 +120,7 @@ export const UserProvider = ({ children }) => {
                 verifyUser,
                 loading,
                 logoutHandler,
+                verificationLoading,
             }}
         >
             {children}

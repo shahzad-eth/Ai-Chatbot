@@ -7,21 +7,21 @@ import { UserData } from "./context/Usercontext";
 import { LoadingBig } from "./components/Loading";
 
 const App = () => {
-  const { user, isAuth, loading } = UserData();
+  const { user, isAuth, loading, verificationLoading } = UserData();
+
+  // Show loading if initial loading OR verification is in progress
+  if (loading || verificationLoading) {
+    return <LoadingBig />;
+  }
+
   return (
-    <>
-      {loading ? (
-        <LoadingBig />
-      ) : (
-        <BrowserRouter>
-          <Routes>
-            <Route path="/" element={isAuth ? <Home /> : <Login />} />
-            <Route path="/login" element={isAuth ? <Home /> : <Login />} />
-            <Route path="/verify" element={isAuth ? <Home /> : <Verify />} />
-          </Routes>
-        </BrowserRouter>
-      )}
-    </>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={isAuth ? <Home /> : <Login />} />
+        <Route path="/login" element={isAuth ? <Home /> : <Login />} />
+        <Route path="/verify" element={isAuth ? <Home /> : <Verify />} />
+      </Routes>
+    </BrowserRouter>
   );
 };
 

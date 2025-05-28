@@ -67,7 +67,7 @@ const Home = () => {
                         <LoadingBig />
                     ) : (
                         <div
-                            className="flex-1 p-6 max-h-[600px] overflow-y-auto mb-20 md:mb-0 thin-scrollbar"
+                            className="flex-1 p-6 max-h-[660px] md:max-h-[600px] overflow-y-auto mb-10 md:mb-0 thin-scrollbar"
                             ref={messagecontainerRef}
                         >
                             {messages && messages.length > 0 ? (

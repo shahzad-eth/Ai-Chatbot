@@ -81,6 +81,13 @@ export const ChatProvider = ({ children }) => {
     const [selected, setSelected] = useState(null);
 
     async function fetchChats() {
+        const token = localStorage.getItem("token");
+
+        // Don't make API call if no token exists
+        if (!token) {
+            setChats([]);
+            return;
+        }
         try {
             const { data } = await axios.get(`${server}/api/chat/all`, {
                 headers: {

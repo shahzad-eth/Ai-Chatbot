@@ -26,7 +26,7 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
                 }`}
         >
             <button
-                className="md:hidden p-2 mb-4 bg-gray-700 rounded text-2xl"
+                className="md:hidden p-2 mb-4 bg-gray-700 rounded text-2xl cursor-pointer"
                 onClick={toggleSidebar}
             >
                 <IoIosCloseCircle />
@@ -36,7 +36,7 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
             <div className="mb-4">
                 <button
                     onClick={createChat}
-                    className="w-full py-2 bg-gray-700 hover:bg-gray-600 rounded"
+                    className="w-full py-2 bg-gray-700 hover:bg-gray-600 rounded cursor-pointer"
                 >
                     {createLod ? <LoadingSpinner /> : "New Chat +"}
                 </button>
@@ -47,19 +47,19 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
                 <div className="max-h-[500px] overflow-y-auto mb-20 md:mb-0 thin-scrollbar">
                     {chats && chats.length > 0 ? (
                         chats.map((e) => (
-                            <button
+                            <div
                                 key={e._id}
-                                className="w-full text-left py-2 px-2 bg-gray-700 hover:bg-gray-600 rounded mt-2 flex justify-between items-center"
+                                className="w-full text-left py-2 px-2 bg-gray-700 hover:bg-gray-600 rounded mt-2 flex justify-between items-center cursor-pointer"
                                 onClick={() => clickEvent(e._id)}
                             >
                                 <span>{e.latestmessage?.slice(0, 38) || "New Chat"}...</span>
                                 <button
-                                    className="bg-red-600 text-white text-xl px-3 py-2 rounded-md hover:bg-red-700"
+                                    className="bg-red-600 text-white text-xl px-3 py-2 rounded-md hover:bg-red-700 cursor-pointer"
                                     onClick={() => deleteChatHandler(e._id)}
                                 >
                                     <MdDelete />
                                 </button>
-                            </button>
+                            </div>
                         ))
                     ) : (
                         <p>No chats yet</p>
@@ -67,9 +67,9 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
                 </div>
             </div>
 
-            <div className="md:pb-0 absolute bottom-0 mb-6 w-full pr-8 pb-18">
+            <div className="md:pb-0 absolute bottom-0 mb-3 w-full pr-8 pb-18">
                 {/* User info section */}
-                <div className="mb-3 p-2 pr-1 bg-gray-700 rounded">
+                <div className="mb-1.5 p-1 pr-1 bg-gray-700 rounded">
                     <p className="text-sm text-gray-300 truncate">
                         Logged in as: <span className="text-white">{user?.email || 'User'}</span>
                     </p>
@@ -77,7 +77,7 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
 
                 {/* Logout button */}
                 <button
-                    className="bg-red-600 text-white text-xl px-3 py-2 rounded-md hover:bg-red-700 w-full"
+                    className="bg-red-600 text-white text-[18px] px-3 py-[4px] rounded-md hover:bg-red-700 w-full cursor-pointer"
                     onClick={logoutHandler}
                 >
                     Logout
